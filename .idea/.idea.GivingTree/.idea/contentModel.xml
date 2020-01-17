@@ -349,7 +349,10 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
-          <e p="NetworkManager.cs" t="Include" />
+          <e p="Networking" t="Include">
+            <e p="NetworkManager.cs" t="Include" />
+            <e p="Ping.cs" t="Include" />
+          </e>
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
