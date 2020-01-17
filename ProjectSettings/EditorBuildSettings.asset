@@ -5,7 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/Networking_Test.unity
+  - enabled: 0
+    path: Assets/Scenes/Networking_Test_Vuforia.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/AzureSpatialAnchors.Examples/Scenes/AzureSpatialAnchorsBasicDemo.unity
+    guid: 8eb951603c1152c4e920887a18cc2733
+  m_configObjects:
+    Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dcd5070ec2cb2e4498fe7963cc921c17,
+      type: 2}
+    com.unity.xr.arcore.PlayerSettings: {fileID: 11400000, guid: 3c25a95d59337f84086538d8f7c74f27,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: a5e4077bf5957aa47b93320aad4c8c93,
+      type: 2}

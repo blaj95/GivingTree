@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-#region Private Serializable Fields
+    #region Private Serializable Fields
 
     [SerializeField]
     private byte maxPlayersPerRoom = 10;
@@ -29,10 +29,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
-    void Start()
-    {
-        Connect();
-    }
+    // Connect now happening on Button Click instead of 
+    // void Start()
+    // {
+    //     Connect();
+    // }
 
 
 #endregion
