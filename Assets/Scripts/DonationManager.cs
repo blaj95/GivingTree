@@ -16,6 +16,7 @@ public class DonationManager : MonoBehaviour
     public bool placeLeaf, spawnedLeaf;
     public float lastDistance;
     private Donation currentDonation;
+    public DonationMeter donationMeter;
     
     // Update is called once per frame
     void Update()
@@ -94,6 +95,7 @@ public class DonationManager : MonoBehaviour
         currentDonation = newDonation;
         donationResponse.text =
             "Thank you " + currentDonation.name + " for your donation of $" + currentDonation.amount;
+        donationMeter.OnDonation(currentDonation.amount);
         spawnedLeaf = false;
         confirmUI.SetActive(false);
         editUI.SetActive(false);

@@ -16,7 +16,7 @@ public class SwipeHandler : MonoBehaviour
     
     public Camera mainCamera;
 
-    public float swipeThreshold;
+    private float swipeThreshold = 2;
     
     // Update is called once per frame
     void Update()
@@ -52,7 +52,7 @@ public class SwipeHandler : MonoBehaviour
     {
         float xDiff = p2.x-p1.x;
         float yDiff = p2.y - p1.y;
-      //  Debug.Log(yDiff);
+        Debug.Log(yDiff);
         // if (Math.Abs(xDiff) > swipeThreshold && Math.Abs(xDiff) > Math.Abs(yDiff))
         // {
         //     if (xDiff > 0)
@@ -65,17 +65,17 @@ public class SwipeHandler : MonoBehaviour
         //     }   
         // }
         // else
-        if (Math.Abs(yDiff) > swipeThreshold && Math.Abs(yDiff) > Math.Abs(xDiff))
-        {
-            if (yDiff > 0)
-            {
-                Debug.Log("Up");
-            }
-            else if (yDiff < 0)
-            {
-                Debug.Log("Down");
-            }
-        }
+        // if (Math.Abs(yDiff) > swipeThreshold && Math.Abs(yDiff) > Math.Abs(xDiff))
+        // {
+        //     if (yDiff > 0)
+        //     {
+        //         Debug.Log("Up");
+        //     }
+        //     else if (yDiff < 0)
+        //     {
+        //         Debug.Log("Down");
+        //     }
+        // }
     }
     // void DeleteMarkers()
     // {
