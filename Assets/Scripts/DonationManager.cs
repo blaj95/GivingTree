@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class DonationManager : MonoBehaviour
 {
-    public GameObject donationUI, confirmUI, leafPrefab, treeColliders;
+    public GameObject donationUI, confirmUI, editUI, leafPrefab, treeColliders;
     public Transform arCamera;
     public TMP_InputField amountInput, nameInput, messageInput;
     public TMP_Text donationResponse;
@@ -36,21 +36,20 @@ public class DonationManager : MonoBehaviour
         //READY TO PLACE LEAF AFTER SUBMITING DONATION INFO
         else if (placeLeaf)
         {
+            
             if (Input.touchCount > 0)
             {
-                if (Input.touchCount > 0)
+                Ray raycastTap = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                RaycastHit raycastHit;
+                if (Physics.Raycast(raycastTap, out raycastHit))
                 {
-                    Ray raycastTap = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                    RaycastHit raycastHit;
-                    if (Physics.Raycast(raycastTap, out raycastHit))
+                    if (raycastHit.transform.CompareTag("Tree"))
                     {
-                        if (raycastHit.transform.CompareTag("Tree"))
-                        {
-                            leafPlacer.MoveToTree(GetClosestPoint(raycastHit.point));
-                            confirmUI.SetActive(true);
-                        }
-                    }   
-                }
+                        leafPlacer.MoveToTree(GetClosestPoint(raycastHit.point));
+                        confirmUI.SetActive(true);
+                        
+                    }
+                }   
             }
         }
     }
@@ -60,6 +59,7 @@ public class DonationManager : MonoBehaviour
         switch (tag)
         {
             case "Donate":
+                donationResponse.text = "";
                 donationUI.SetActive(true);
                 GameObject newLeaf = Instantiate(leafPrefab, arCamera.position, arCamera.rotation, arCamera);
                 leafPlacer = newLeaf.GetComponent<PlaceableLeaf>();
@@ -71,20 +71,32 @@ public class DonationManager : MonoBehaviour
     public void SubmitDonation()
     {
         Debug.Log("Submit Donation");
-        Donation newDonation = new Donation(float.Parse(amountInput.text), nameInput.text, messageInput.text);
-        currentDonation = newDonation;
         donationUI.SetActive(false);
         donationResponse.text = "Place your leaf on the tree!";
         treeColliders.SetActive(true);
+        if(placeLeaf)
+            confirmUI.SetActive(true);
+        editUI.SetActive(true);
         placeLeaf = true;
     }
 
+    public void EditDonation()
+    {
+        donationUI.SetActive(true);
+        treeColliders.SetActive(false);
+        editUI.SetActive(false);
+    }
+    
     public void ConfirmPlacement()
     {
         leafPlacer = null;
+        Donation newDonation = new Donation(float.Parse(amountInput.text), nameInput.text, messageInput.text);
+        currentDonation = newDonation;
         donationResponse.text =
             "Thank you " + currentDonation.name + " for your donation of $" + currentDonation.amount;
         spawnedLeaf = false;
+        confirmUI.SetActive(false);
+        editUI.SetActive(false);
     }
 
     public Transform GetClosestPoint(Vector3 hitPose)
