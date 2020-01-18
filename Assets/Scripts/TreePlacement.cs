@@ -40,8 +40,7 @@ public class TreePlacement : MonoBehaviour
                 return;
             }   
         }
-
-        if (treeSpawned)
+        else if (treeSpawned)
         {
             Ray raycastTap = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
             RaycastHit raycastHit;
