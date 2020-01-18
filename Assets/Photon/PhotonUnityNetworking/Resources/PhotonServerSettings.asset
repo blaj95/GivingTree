@@ -35,5 +35,6 @@ MonoBehaviour:
   - Fire
   - PingRPC
   - RespawnSpaceship
+  - CubeColorRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0

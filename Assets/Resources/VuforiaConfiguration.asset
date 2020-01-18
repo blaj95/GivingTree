@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: VuforiaConfiguration
   m_EditorClassIdentifier: 
   vuforia:
-    vuforiaLicenseKey: 
-    ufoLicenseKey: QVhiM0Y1Ly8vLy8vQUFBQUtPbnFIeHJFSGs1N3VrMlg4U050eVBzK2pkOFZxMDhrazlwYjBsYS9aZUIxQlV1ckZWcWt0ZllSQWpnT2tIRlY2VzdOMDRTRjNYRUhmbTF5L1BnYlB4eWdHWEF6RUNheXowc3dyNVNYa2ozdERuRjhka1FpOHRscHdkMDcrcEJEY1FjTjNJcUM1bEgwOTYzQkdZdjRsQStRb0hSQU9nRGthelp5TlY0WHVwWU9EaE05NWw5bXAzbnBDMjM5MWZBWXBFdEdiL2loTDNab3N4b25ZblhjK1JtSS9wLzRoTDIwVGhmTXR6WFJNYkpUTXZLZzJoQ0N0TEJXNEptZ0pSOUtSdStzQWM3QjVNOWFFMGVHQ1dUT1VRSUUweEpiZC9ZL2cvS29iNDhBRXdQOGFwbWR5NmRWU0FHU2psVzRZY2FEU2Zud3J1ZHhucVNmSUZiajNTUnIzM0lKVlFIaW1rL0oyOGNFeDdyekcySXg=
+    vuforiaLicenseKey: AQF2qaH/////AAABmdC26qDKvEm2kLl5Lg/LxEJDHtT+Az0ekzoKnPdSnxIzYZOnRk5h9/r3j9xolHxsq/5s71aaf1sFChrTUxHzLbeXkD66/z2H5v3lSrbfODLfOnfEJmZb19JpMJKXPnTg20vKIIeOC7rqPe435PIChDr1yUI7U5OJbs1KW9OkoPlSmjnO1ClxOA/CHB8MbF5Om3om4+g9L+FVo/DdFLX6nZP+81bue4V5PimlqR1evSBz4YGZljK7ehhRcJiPEs5cvfg8vToDmBunXjg3LPy9wrSOCM/qIVyzB1/zBHdWKv6r3VL4bHXB5mFSMqTAucKcJOG97wM3JB2Rr2B/BHsVZ7NwBDrnVmb6YyMyNF5fsQAX
+    ufoLicenseKey: QVo5U0QzVC8vLy8vQUFBQUtBTitwR0haV0VPbWwvQXBLWlh1eFMwa3E3SUFmRG5hWkFqYjhTL1VWMGU0WnF4TGllY1dUbFMvR1NsVzMyZzB2S3ErcUdzOFBONVpHRTkxa2YrcG1nNDh4WnRveWRCNC9QOHJPUTQzT1dKR044bTVBSFdSQml2bllVcEFFSDJtREw2SDZJSG90UFBHK3hZNDlGWC9ReTZqRE81SXhNRDlWR1N3ZW1MeU04ZXVHdmFvYjZ2NDcrWmdNWnFJN042NElaazZYVU9oSnRNWG5BWTBuMlpISU56bXlIeldxcXBMbm5vZ291bG80ZkxER3RzZ1BydFdNVmJXVzVBOGRydlpnU2ZXQzA2RWY3SU5tN0ppVG9YZDVjb2k0QjlkTnBxUXlqQUlmcXdZWktUN3VyakpyVkdZK1ZnVzg0dFd6bHpkeE5UQ1FlU25NalhoNVY5dEtycDhoYWpzdFhYdzB4QksraDZJTVpwT3k3ZFc=
     delayedInitialization: 0
     cameraDeviceModeSetting: -1
-    maxSimultaneousImageTargets: 1
+    maxSimultaneousImageTargets: 5
     maxSimultaneousObjectTargets: 1
-    useDelayedLoadingObjectTargets: 0
+    useDelayedLoadingObjectTargets: 1
     modelTargetRecoWhileExtendedTracked: 1
     version: 8.6.7
-    eulaAcceptedVersions: 
+    eulaAcceptedVersions: '{"Values":["8.1","0.0","8.3","7.1","7.2","7.5","7.7","8.0","7.9","8.2","8.6"]}'
     modelTargetMode: 0
   database:
     disableModelExtraction: 0
@@ -34,8 +34,8 @@ MonoBehaviour:
   deviceTracker:
     autoInitTracker: 0
     autoStartTracker: 0
-    arcoreRequirement: 0
-    autoImportArcore: 0
+    arcoreRequirement: 2
+    autoImportArcore: 1
   smartTerrain:
     autoInitTracker: 0
     autoStartTracker: 0

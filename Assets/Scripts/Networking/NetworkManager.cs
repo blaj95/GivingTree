@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    #region Private Serializable Fields
+    #region Private Serializable Variables
 
     [SerializeField]
     private byte maxPlayersPerRoom = 10;
@@ -16,8 +16,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         
 #region Private Fields
 
-        string gameVersion = "1";
+    string gameVersion = "1";
 
+
+#endregion
+
+#region Public Variables
+
+    public SceneManager sceneManager;
 
 #endregion
 
@@ -63,10 +69,12 @@ public override void OnJoinedRoom()
     if (PhotonNetwork.IsMasterClient)
     {
         Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room and is the master client."); 
+        sceneManager.RoomJoined();
     }
     else
     {
         Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room.");
+        sceneManager.RoomJoined();
     }
 }
 
