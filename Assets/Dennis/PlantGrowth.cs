@@ -10,6 +10,7 @@ public class PlantGrowth : MonoBehaviour
     private float growthStartTime;
 
     private Vector3 newScale;
+    private Vector3 newEuler;
 
     public float growthDuration = 2f;
 
@@ -36,6 +37,7 @@ public class PlantGrowth : MonoBehaviour
             {
                 print("scaling");
                 transform.localScale = Vector3.Lerp(transform.localScale, newScale, growthProportion);
+                //transform.localEulerAngles = Vector3.Lerp(transform.localEulerAngles, newEuler, growthProportion);
             }
         }
         
@@ -46,6 +48,7 @@ public class PlantGrowth : MonoBehaviour
         growthStartTime = Time.time;
         growing = true;
         newScale = new Vector3(scale, scale, scale);
+        newEuler = new Vector3(0f, transform.localEulerAngles.y + Random.Range(30f, 200f), 0f);
         growthDelay = delay;
         print(newScale);
        
