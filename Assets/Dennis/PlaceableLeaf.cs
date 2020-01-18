@@ -10,7 +10,7 @@ public class PlaceableLeaf : MonoBehaviour
     public float moveToUserDuration = 2f;
     public float moveToTreeDuration = 2f;
 
-
+    private Transform arCamera;
     private bool movingToUser;
     private float movingToUserTime;
 
@@ -25,33 +25,36 @@ public class PlaceableLeaf : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        heldByUserPos = new Vector3(0.15f, -0.15f, 0.15f);
+        arCamera = GameObject.Find("ARCamera").GetComponent<Transform>();
+        ground = GameObject.Find("GroundPrefab");
+        heldByUserPos = new Vector3(0f, -.085f, 0.205f);
         movingToUser = false;
         heldByUser = false;
         movingToTree = false;
 
-        GenerateOnGround();
+        //GenerateOnGround();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (movingToUser)
-        {
-            if(Time.time - movingToUserTime < moveToUserDuration ){
-                transform.position = Vector3.Lerp(transform.position, Camera.main.transform.position + heldByUserPos, (Time.time - movingToUserTime) / moveToUserDuration);
-            }
-            else
-            {
-                movingToUser = false;
-                heldByUser = true;
-            }
-        }
-        else if (heldByUser)
-        {
-            transform.position = Camera.main.transform.position + heldByUserPos;
-        }
-        else if (movingToTree)
+        // if (movingToUser)
+        // {
+        //     if(Time.time - movingToUserTime < moveToUserDuration ){
+        //         transform.position = Vector3.Lerp(transform.position, arCamera.position + heldByUserPos, (Time.time - movingToUserTime) / moveToUserDuration);
+        //     }
+        //     else
+        //     {
+        //         movingToUser = false;
+        //         heldByUser = true;
+        //     }
+        // }
+        // else if (heldByUser)
+        // {
+        //     // transform.position = arCamera.position + heldByUserPos;
+        // }
+        // else
+        if (movingToTree)
         {
             if (Time.time - movingToTreeTime < moveToTreeDuration)
             {
@@ -68,26 +71,28 @@ public class PlaceableLeaf : MonoBehaviour
 
    
 
-    private void OnMouseDown()
-    {
-        if (!movingToUser)
-        {
-            movingToUser = true;
-            movingToUserTime = Time.time;
-        }
-    }
+    // private void OnMouseDown()
+    // {
+    //     if (!movingToUser)
+    //     {
+    //         movingToUser = true;
+    //         movingToUserTime = Time.time;
+    //     }
+    // }
 
     public void MoveToTree(Transform t)
     {
+        transform.parent = null;
+        placedTransform = t;
         movingToTree = true;
         movingToTreeTime = Time.time;
     }
 
 
-    private void GenerateOnGround()
-    {
-        Vector3 userDirectionFromGround = (ground.transform.position - Camera.main.transform.position).normalized;
-        transform.position = ground.transform.position + userDirectionFromGround * 3f;
-        transform.LookAt(Camera.main.transform);
-    }
+    // private void GenerateOnGround()
+    // {
+    //     Vector3 userDirectionFromGround = (ground.transform.position - arCamera.position).normalized;
+    //     // transform.position = arCamera.position + userDirectionFromGround * 3f;
+    //     // transform.LookAt(arCamera);
+    // }
 }

@@ -164,6 +164,8 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="DonationManager.cs" t="Include" />
+          <e p="EnablePlaque.cs" t="Include" />
           <e p="Networking" t="Include">
             <e p="NetworkManager.cs" t="Include" />
             <e p="Ping.cs" t="Include" />
