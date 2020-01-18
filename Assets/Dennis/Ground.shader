@@ -51,8 +51,6 @@
             
             float dirtFactor = smoothstep(0.35, 0.1, distance(IN.uv_MainTex, float2(0.5, 0.5)));
 
-            
-
             o.Alpha = smoothstep(0.5, 0.25, distance(IN.uv_MainTex, float2(0.5, 0.5)));
             
             dirt = fixed4(dirt.r * _Saturation, dirt.g, dirt.b, dirt.a); //saturate the redness in dirt
@@ -66,7 +64,6 @@
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
-            //o.Alpha = c.a;
         }
         ENDCG
     }

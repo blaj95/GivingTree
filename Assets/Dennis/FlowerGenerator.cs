@@ -74,7 +74,18 @@ public class FlowerGenerator : MonoBehaviour
 
             if (!onTree) //make further plants more transparent
             {
-                Color color = newPlant.GetComponent<MeshRenderer>().material.color;
+                for (int ind = 0; ind < newPlant.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().materials.Length; ind++)
+                {
+                    Color color = newPlant.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().materials[ind].color;
+                    color.a = Mathf.SmoothStep(1f, 0f, Vector3.Magnitude(spawnPoint) / 3f);
+                    //Material newMat = new Material(newPlant.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().materials[ind]);
+                    //newMat.shader = Shader.Find("Custom/PlantStandard");
+                    //newMat.color = color;
+                    //newMat.renderQueue = 3000;
+                    //newPlant.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().materials[ind] = newMat;
+                    newPlant.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().materials[ind].color = color;
+
+                }
             }
            
 		}
@@ -88,7 +99,7 @@ public class FlowerGenerator : MonoBehaviour
         for(int i = 0; i < spawnedPlants.Count; i += 1)
         {
             float proportionFromGroundToBranchEnd = Vector3.Distance(Vector3.zero, spawnedPlants[i].transform.position) / 7f;
-            float nextScale =  (1f + (proportionFromGroundToBranchEnd * 3f)) * ((float)curBloomTier / (float)numBloomTiers) ;  //scales leaves proportionally depending on how far they are from the base of the tree. Final scale is clamped between range of 1 to 4
+            float nextScale =  (1f + (proportionFromGroundToBranchEnd * 2f)) * ((float)curBloomTier / (float)numBloomTiers) ;  //scales leaves proportionally depending on how far they are from the base of the tree. Final scale is clamped between range of 1 to 3
             if (!onTree) nextScale = nextScale / 2f;
             spawnedPlants[i].GetComponent<PlantGrowth>().Grow((Mathf.Clamp(nextScale, 0f, 3f)), Random.value * 2f);
         }
