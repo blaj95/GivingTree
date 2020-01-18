@@ -24,7 +24,7 @@ public class Ping : MonoBehaviourPun
         photonView.RPC("CubeColorRPC", RpcTarget.Others,  r,  g,  b,pos);
         GameObject leaf = Instantiate(leafPrefabLocal,pos,Quaternion.identity);
         leaf.GetComponent<Renderer>().material.color = new Color(r, g, b);
-        leaf.transform.parent = target;
+        // leaf.transform.parent = target;
     }
 
     [PunRPC]
@@ -36,9 +36,9 @@ public class Ping : MonoBehaviourPun
     [PunRPC]
     public void CubeColorRPC(float r, float g, float b, Vector3 pos)
     {
-        GameObject leaf = PhotonNetwork.Instantiate("leafPrefab",pos,Quaternion.identity);
+        GameObject leaf = Instantiate(leafPrefab,pos,Quaternion.identity);
         leaf.GetComponent<Renderer>().material.color = new Color(r, g, b);
-        leaf.transform.parent = tree.transform;
+        // leaf.transform.parent = target;
     }
 
     void Update()

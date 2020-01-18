@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Networking_Test_Vuforia.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/ARFoundation.unity
+    guid: 5c43c11a0f9ed66429045a41c3c72c0e
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dcd5070ec2cb2e4498fe7963cc921c17,
       type: 2}

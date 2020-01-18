@@ -165,6 +165,7 @@
             <e p="Ping.cs" t="Include" />
           </e>
           <e p="SceneManager.cs" t="Include" />
+          <e p="TreePlacement.cs" t="Include" />
         </e>
         <e p="StreamingAssets" t="Include">
           <e p="Vuforia" t="Include">
