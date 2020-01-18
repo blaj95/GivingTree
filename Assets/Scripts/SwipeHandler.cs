@@ -18,12 +18,6 @@ public class SwipeHandler : MonoBehaviour
 
     public float swipeThreshold;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -33,22 +27,22 @@ public class SwipeHandler : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
-                if (endMarker != null)
-                {
-                    DeleteMarkers();                  
-                }
+                // if (endMarker != null)
+                // {
+                //     DeleteMarkers();                  
+                // }
                 Vector3 touchPos = mainCamera.ScreenToWorldPoint(touch.position);
-                beginPos = new Vector3(touchPos.x, touchPos.y, mainCamera.nearClipPlane);
-                beginMarker = Instantiate(marker, beginPos, Quaternion.identity);
+                // beginPos = new Vector3(touchPos.x, touchPos.y, mainCamera.nearClipPlane);
+                // beginMarker = Instantiate(marker, beginPos, Quaternion.identity);
             }
             else if (touch.phase == TouchPhase.Ended)
             {
                 Vector3 touchPos = mainCamera.ScreenToWorldPoint(touch.position);
                 endPos = new Vector3(touchPos.x, touchPos.y, mainCamera.nearClipPlane);
-                endMarker = Instantiate(marker, endPos, Quaternion.identity);
-                LineRenderer rend = endMarker.AddComponent<LineRenderer>();
-                rend.SetPosition(0, endMarker.transform.position);
-                rend.SetPosition(1, beginMarker.transform.position);
+                // endMarker = Instantiate(marker, endPos, Quaternion.identity);
+                // LineRenderer rend = endMarker.AddComponent<LineRenderer>();
+                // rend.SetPosition(0, endMarker.transform.position);
+                // rend.SetPosition(1, beginMarker.transform.position);
                 CalculateSwipe(beginPos, endPos);
             }
         }
@@ -58,8 +52,6 @@ public class SwipeHandler : MonoBehaviour
     {
         float xDiff = p2.x-p1.x;
         float yDiff = p2.y - p1.y;
-        Debug.Log(xDiff);
-        Debug.Log(yDiff);
         if (Math.Abs(xDiff) > swipeThreshold && Math.Abs(xDiff) > Math.Abs(yDiff))
         {
             if (xDiff > 0)
@@ -83,9 +75,9 @@ public class SwipeHandler : MonoBehaviour
             }
         }
     }
-    void DeleteMarkers()
-    {
-        Destroy(beginMarker);
-        Destroy(endMarker);
-    }
+    // void DeleteMarkers()
+    // {
+    //     Destroy(beginMarker);
+    //     Destroy(endMarker);
+    // }
 }
