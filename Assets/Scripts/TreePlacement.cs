@@ -40,34 +40,37 @@ public class TreePlacement : MonoBehaviour
                 return;
             }   
         }
-        else if (treeSpawned)
-        {
-            Ray raycastTap = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            RaycastHit raycastHit;
-            if (Physics.Raycast(raycastTap, out raycastHit))
-            {
-                if (raycastHit.transform.CompareTag("Tree"))
-                {
-                    for (int i = 0; i < leafPoints.Count; i++)
-                    {
-                        float distance = Vector3.Distance(leafPoints[i].position, raycastHit.point);
-                        if (distance < lastDistance)
-                        {
-                            Debug.Log("Found Closer Leaf!");
-                            closestLeafPoint = leafPoints[i];  
-                            lastDistance = distance;
-                        }
-                    }
-                    GameObject leaf = Instantiate(leafPrefab, closestLeafPoint.position, Quaternion.identity);
-                    lastDistance = 100;
-                    // var direction = (raycastHit.transform.position - leaf.transform.position).normalized;
-                    // leaf.transform.forward = direction;
-                }
-            }
-        }
+        // else if (treeSpawned)
+        // {
+        //     Ray raycastTap = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+        //     RaycastHit raycastHit;
+        //     if (Physics.Raycast(raycastTap, out raycastHit))
+        //     {
+        //         if (raycastHit.transform.CompareTag("Tree"))
+        //         {
+        //             for (int i = 0; i < leafPoints.Count; i++)
+        //             {
+        //                 float distance = Vector3.Distance(leafPoints[i].position, raycastHit.point);
+        //                 if (distance < lastDistance)
+        //                 {
+        //                     Debug.Log("Found Closer Leaf!");
+        //                     closestLeafPoint = leafPoints[i];  
+        //                     lastDistance = distance;
+        //                 }
+        //             }
+        //             GameObject leaf = Instantiate(leafPrefab, closestLeafPoint.position, Quaternion.identity);
+        //             lastDistance = 100;
+        //             // var direction = (raycastHit.transform.position - leaf.transform.position).normalized;
+        //             // leaf.transform.forward = direction;
+        //         }
+        //     }
+        // }
     }
-    
 
+    void ObjectInteractions()
+    {
+        
+    }
     bool TryGetTouchPosition(out Vector2 touchPosition)
     {
         if (Input.touchCount > 0)
