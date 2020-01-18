@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9078831429692904315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9078831429692904313}
+  - component: {fileID: 9078831429692904314}
+  m_Layer: 0
+  m_Name: 'GroundFlowerGenerator '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9078831429692904313
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9078831429692904315}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.16104962, y: -0.7939589, z: -2.5378761}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9078831429692904314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9078831429692904315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb030233c8f14a8c8c3027e816b39fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plantPrefabs:
+  - {fileID: 6725813362333153238, guid: a8256ef634e4d47b68261d880a27be21, type: 3}
+  - {fileID: 2539699437058174758, guid: 69aa20c16b25b4e3fa5882a19709a6dc, type: 3}
+  - {fileID: 1845222198221499599, guid: 9fea5201fe3c241c9842721c2195f477, type: 3}
+  - {fileID: 5257651974220810739, guid: 8d2eef227ab234c52873920c8107edd9, type: 3}
+  - {fileID: 1506389670347334044, guid: edbcba63dac0a471cae58ebfbd02dd19, type: 3}
+  - {fileID: 5154112151860516212, guid: 55cc5024223764afb885bce7485835f5, type: 3}
+  - {fileID: 7556470811230974215, guid: 1b5ee33dc065142609d09d6d2f7efe11, type: 3}
+  - {fileID: 6648348267978628841, guid: fe523e4e2c34243359abb735c3e665e3, type: 3}
+  - {fileID: 3420778255526390192, guid: 3a03a41f9e3a248f28e02359848e871e, type: 3}
+  - {fileID: 8879371421533302584, guid: 8f8a47266d9d4447a816b2a8b961fdc0, type: 3}
+  - {fileID: 5635276620956820339, guid: afb9999740de24fe98eb34d0e1aa39f2, type: 3}
+  - {fileID: 1147509504085216753, guid: 975ad7fa5a8344c848d9b6b1ca15c780, type: 3}
+  numPlants: 250
+  minSpawnDistance: 0.5
+  maxSpawnDistance: 3.5
+  numBloomTiers: 5
+  treeSpawnPointsParent: {fileID: 0}
+  onTree: 0

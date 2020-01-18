@@ -17,7 +17,8 @@ public class DonationManager : MonoBehaviour
     public float lastDistance;
     private Donation currentDonation;
     public DonationMeter donationMeter;
-    
+
+    public int uiLayer;
     // Update is called once per frame
     void Update()
     {
@@ -37,20 +38,25 @@ public class DonationManager : MonoBehaviour
         //READY TO PLACE LEAF AFTER SUBMITING DONATION INFO
         else if (placeLeaf)
         {
-            
             if (Input.touchCount > 0)
             {
                 Ray raycastTap = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                 RaycastHit raycastHit;
                 if (Physics.Raycast(raycastTap, out raycastHit))
                 {
+                    if (raycastHit.transform.gameObject.layer == 1<<uiLayer)
+                    {
+                        Debug.Log("Touched UI");
+                        return;
+                    }
+                    
                     if (raycastHit.transform.CompareTag("Tree"))
                     {
                         leafPlacer.MoveToTree(GetClosestPoint(raycastHit.point));
                         confirmUI.SetActive(true);
                         
                     }
-                }   
+                }
             }
         }
     }

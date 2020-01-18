@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
@@ -16,8 +17,11 @@ public class TreePlacement : MonoBehaviour
     private float lastDistance = 100;
     private Transform closestLeafPoint;
     public List<Transform> leafPoints;
-
     public Transform camera;
+
+    public FlowerGenerator treeFlowers;
+    public FlowerGenerator groundPlants;
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -44,6 +48,8 @@ public class TreePlacement : MonoBehaviour
                 foreach (var plane in planeManager.trackables)
                     plane.gameObject.SetActive(false);
                 planeManager.enabled = false;
+                groundPlants.NextBloom();
+                treeFlowers.NextBloom();
                 donationManager.SetActive(true);
                 enabled = false;
                 return;
