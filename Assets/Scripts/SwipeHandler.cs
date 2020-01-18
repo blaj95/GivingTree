@@ -32,7 +32,7 @@ public class SwipeHandler : MonoBehaviour
                 //     DeleteMarkers();                  
                 // }
                 Vector3 touchPos = mainCamera.ScreenToWorldPoint(touch.position);
-                // beginPos = new Vector3(touchPos.x, touchPos.y, mainCamera.nearClipPlane);
+                beginPos = new Vector3(touchPos.x, touchPos.y, mainCamera.nearClipPlane);
                 // beginMarker = Instantiate(marker, beginPos, Quaternion.identity);
             }
             else if (touch.phase == TouchPhase.Ended)
@@ -52,18 +52,20 @@ public class SwipeHandler : MonoBehaviour
     {
         float xDiff = p2.x-p1.x;
         float yDiff = p2.y - p1.y;
-        if (Math.Abs(xDiff) > swipeThreshold && Math.Abs(xDiff) > Math.Abs(yDiff))
-        {
-            if (xDiff > 0)
-            {
-                Debug.Log("Right");
-            }
-            else if (xDiff < 0)
-            {
-                Debug.Log("Left");
-            }   
-        }
-        else if (Math.Abs(yDiff) > swipeThreshold && Math.Abs(yDiff) > Math.Abs(xDiff))
+      //  Debug.Log(yDiff);
+        // if (Math.Abs(xDiff) > swipeThreshold && Math.Abs(xDiff) > Math.Abs(yDiff))
+        // {
+        //     if (xDiff > 0)
+        //     {
+        //         Debug.Log("Right");
+        //     }
+        //     else if (xDiff < 0)
+        //     {
+        //         Debug.Log("Left");
+        //     }   
+        // }
+        // else
+        if (Math.Abs(yDiff) > swipeThreshold && Math.Abs(yDiff) > Math.Abs(xDiff))
         {
             if (yDiff > 0)
             {
