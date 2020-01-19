@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DonationManager : MonoBehaviour
 {
@@ -26,10 +27,15 @@ public class DonationManager : MonoBehaviour
     public ColorManager colorManager;
     public int uiLayer;
     public AudioSource donationUnlockedSound, leafLockedSoud, leafUnlockedSound;
-
+    private GameObject selectedOtherLeaf;
     public FlowerGenerator treeBloom;
     public FlowerGenerator groundBloom;
-
+    public bool myLeaf;
+    private int leafPlaceIndex = 0;
+    public Image messageIcon, bg;
+    public GameObject yourDonation;
+    public Color darkGray;
+    public Color tWhite;
     // Update is called once per frame
     void Update()
     {
@@ -83,19 +89,70 @@ public class DonationManager : MonoBehaviour
                 GameObject newLeaf = Instantiate(leafPrefab, arCamera.position, arCamera.rotation, arCamera);
                 leafPlacer = newLeaf.GetComponentInChildren<PlaceableLeaf>();
                 currentLeaf = newLeaf;
+                currentLeaf.name = currentLeaf.name + "_" + leafPlaceIndex;
                 // leafParticles = newLeaf.GetComponentInChildren<ParticleSystem>();
                 // leafParticles.Stop();
                 spawnedLeaf = true;
                 break;
             case "Leaf":
-                donationResponse.text = "Your placed leaf";
-                break;
-            case "OtherLeaf":
+                bg.color = tWhite;
+                messageIcon.color = darkGray;
+                placedDonationMessage.color = darkGray;
+                placedDonationName.color = darkGray;
+                yourDonation.SetActive(true);
                 if (donated)
                 {
+                    if (selectedOtherLeaf != null)
+                    {
+                        OnReadDonationClose();
+                        // if (myLeaf)
+                        // {
+                        //     selectedOtherLeaf.transform.localScale = new Vector3( selectedOtherLeaf.transform.localScale.x - 1f, selectedOtherLeaf.transform.localScale.y - 1f ,selectedOtherLeaf.transform.localScale.z - 1f);
+                        // }
+                        // else
+                        // {
+                        //     selectedOtherLeaf.transform.localScale = new Vector3( selectedOtherLeaf.transform.localScale.x - .006f, selectedOtherLeaf.transform.localScale.y - .006f ,selectedOtherLeaf.transform.localScale.z - .006f);   
+                        // }
+                        selectedOtherLeaf = null;
+                    }
+                }
+                myLeaf = true;
+                leafUnlockedSound.Play();
+                string[] _leafNum = hitObject.name.Split('_');
+                // donationResponse.text = "Your placed leaf" + _leafNum[1];
+                selectedOtherLeaf = hitObject;
+                selectedOtherLeaf.transform.localScale = new Vector3( selectedOtherLeaf.transform.localScale.x + 1f, selectedOtherLeaf.transform.localScale.y + 1f ,selectedOtherLeaf.transform.localScale.z + 1f);
+                placedDonationName.text = donations.yourDonations[int.Parse(_leafNum[1])].name;
+                placedDonationMessage.text = donations.yourDonations[int.Parse(_leafNum[1])].message;
+                donationReadPanel.SetActive(true);
+                break;
+            case "OtherLeaf":
+                bg.color = darkGray;
+                messageIcon.color = tWhite;
+                placedDonationMessage.color = tWhite;
+                placedDonationName.color = tWhite;
+                yourDonation.SetActive(false);
+                if (donated)
+                {
+                    if (selectedOtherLeaf != null)
+                    {
+                        OnReadDonationClose();
+                        // if (myLeaf)
+                        // {
+                        //     selectedOtherLeaf.transform.localScale = new Vector3( selectedOtherLeaf.transform.localScale.x - 1f, selectedOtherLeaf.transform.localScale.y - 1f ,selectedOtherLeaf.transform.localScale.z - 1f);
+                        // }
+                        // else
+                        // {
+                        //     selectedOtherLeaf.transform.localScale = new Vector3( selectedOtherLeaf.transform.localScale.x - .006f, selectedOtherLeaf.transform.localScale.y - .006f ,selectedOtherLeaf.transform.localScale.z - .006f);   
+                        // }
+                        selectedOtherLeaf = null;
+                    }
+                    myLeaf = false;
                     leafUnlockedSound.Play();
                     string[] leafNum = hitObject.name.Split('_');
-                    donationResponse.text = "Another Leaf " + leafNum[1];
+                    selectedOtherLeaf = hitObject;
+                    selectedOtherLeaf.transform.localScale = new Vector3( selectedOtherLeaf.transform.localScale.x + .006f, selectedOtherLeaf.transform.localScale.y + .006f ,selectedOtherLeaf.transform.localScale.z + .006f);
+                    // donationResponse.text = "Another Leaf " + leafNum[1];
                     placedDonationName.text = donations.donations[int.Parse(leafNum[1])].name;
                     placedDonationMessage.text = donations.donations[int.Parse(leafNum[1])].message;
                     donationReadPanel.SetActive(true);
@@ -129,6 +186,16 @@ public class DonationManager : MonoBehaviour
         treeColliders.SetActive(false);
        // editUI.SetActive(false);
     }
+
+    public void OnReadDonationClose()
+    {
+        if(myLeaf)
+            selectedOtherLeaf.transform.localScale = new Vector3( selectedOtherLeaf.transform.localScale.x - 1f, selectedOtherLeaf.transform.localScale.y - 1f ,selectedOtherLeaf.transform.localScale.z - 1f);
+        else
+            selectedOtherLeaf.transform.localScale = new Vector3( selectedOtherLeaf.transform.localScale.x - .006f, selectedOtherLeaf.transform.localScale.y - .006f ,selectedOtherLeaf.transform.localScale.z - .006f);
+        
+        selectedOtherLeaf = null;
+    }
     
     public void ConfirmPlacement()
     {
@@ -136,9 +203,9 @@ public class DonationManager : MonoBehaviour
         placeLeaf = false;
         Donation newDonation = new Donation(float.Parse(amountInput.text), nameInput.text, messageInput.text);
         currentDonation = newDonation;
-        if (donations.donations.Contains(currentDonation))
+        if (!donations.yourDonations.Contains(currentDonation))
         {
-            donations.donations.Add(currentDonation);    
+            donations.yourDonations.Add(currentDonation);    
         }
         
         if (colorPick)
@@ -157,6 +224,7 @@ public class DonationManager : MonoBehaviour
             donationMeter.OnDonation(currentDonation.amount);
             spawnedLeaf = false;
             ColorPick();
+            leafPlaceIndex += 1;
             currentLeaf = null;
             return;
         }
@@ -179,6 +247,7 @@ public class DonationManager : MonoBehaviour
             }
             donated = true;
             donationMeter.OnDonation(currentDonation.amount);
+            leafPlaceIndex += 1;
             spawnedLeaf = false;
             currentLeaf = null;
             // editUI.SetActive(false);   
