@@ -22,6 +22,9 @@ public class PlaceableLeaf : MonoBehaviour
 
     private Vector3 heldByUserPos;
 
+    public MeshRenderer rend1;
+
+    public MeshRenderer rend2;
     // Start is called before the first frame update
     void Start()
     {

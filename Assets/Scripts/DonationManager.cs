@@ -6,18 +6,22 @@ using UnityEngine.EventSystems;
 
 public class DonationManager : MonoBehaviour
 {
-    public GameObject donationUI, confirmUI, editUI, leafPrefab, treeColliders;
+    public GameObject donationUI, confirmUI, editUI, leafPrefab, treeColliders, donationBar, colorPicker;
+    public GameObject currentLeaf;
     public Transform arCamera;
     public TMP_InputField amountInput, nameInput, messageInput;
     public TMP_Text donationResponse;
     private PlaceableLeaf leafPlacer;
     private Transform closestLeafPoint;
     public List<Transform> leafPoints;
-    public bool placeLeaf, spawnedLeaf;
+    public bool placeLeaf, spawnedLeaf, colorPick;
     public float lastDistance;
     private Donation currentDonation;
     public DonationMeter donationMeter;
     private ParticleSystem leafParticles;
+    public MeshRenderer leafRend1;
+    public MeshRenderer leafRend2;
+    public ColorManager colorManager;
     public int uiLayer;
     // Update is called once per frame
     void Update()
@@ -70,6 +74,7 @@ public class DonationManager : MonoBehaviour
                 donationUI.SetActive(true);
                 GameObject newLeaf = Instantiate(leafPrefab, arCamera.position, arCamera.rotation, arCamera);
                 leafPlacer = newLeaf.GetComponentInChildren<PlaceableLeaf>();
+                currentLeaf = newLeaf;
                 // leafParticles = newLeaf.GetComponentInChildren<ParticleSystem>();
                 // leafParticles.Stop();
                 spawnedLeaf = true;
@@ -106,16 +111,57 @@ public class DonationManager : MonoBehaviour
     public void ConfirmPlacement()
     {
         leafPlacer = null;
+        placeLeaf = false;
         Donation newDonation = new Donation(float.Parse(amountInput.text), nameInput.text, messageInput.text);
         currentDonation = newDonation;
-        donationResponse.text =
-            "Thank you " + currentDonation.name + " for your donation of $" + currentDonation.amount;
-        donationMeter.OnDonation(currentDonation.amount);
-        spawnedLeaf = false;
-        confirmUI.SetActive(false);
-        // editUI.SetActive(false);
+        if (colorPick)
+        {
+            // SET LEAF TO SELECTED COLOR
+            confirmUI.SetActive(false);
+            donationResponse.text =
+                "Thank you " + currentDonation.name + " for your premium level donation of $" + currentDonation.amount;
+            donationMeter.OnDonation(currentDonation.amount);
+            spawnedLeaf = false;
+            ColorPick();
+            currentLeaf = null;
+            return;
+        }
+
+        if (currentDonation.amount >= 50)
+        {
+            spawnedLeaf = false;
+            ColorPick();
+        }
+        else
+        {
+            confirmUI.SetActive(false);
+            donationResponse.text =
+                "Thank you " + currentDonation.name + " for your donation of $" + currentDonation.amount;
+            donationMeter.OnDonation(currentDonation.amount);
+            spawnedLeaf = false;
+            currentLeaf = null;
+            // editUI.SetActive(false);   
+        }
     }
 
+    public void ColorPick()
+    {
+        if (!colorPick)
+        {
+            donationBar.SetActive(false);
+            colorPicker.SetActive(true);   
+            leafRend1 = currentLeaf.GetComponent<PlaceableLeaf>().rend1;
+            leafRend2 = currentLeaf.GetComponent<PlaceableLeaf>().rend2;
+            colorPick = true;
+        }
+        else
+        {
+            donationBar.SetActive(true);
+            colorPicker.SetActive(false);   
+            colorPick = false;
+        }
+    }
+    
     public Transform GetClosestPoint(Vector3 hitPose)
     {
         for (int i = 0; i < leafPoints.Count; i++)

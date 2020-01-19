@@ -49,6 +49,8 @@ MonoBehaviour:
   ground: {fileID: 0}
   moveToUserDuration: 2
   moveToTreeDuration: 2
+  rend1: {fileID: 3692686721639268232}
+  rend2: {fileID: 3692686721639268234}
 --- !u!65 &7973296404727225225
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -258,6 +260,18 @@ PrefabInstance:
 --- !u!4 &3692686721641168232 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3131815243123187128, guid: 5b71df10d91bc7a4c84e426b57cedcf8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1750068867750420688}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3692686721639268232 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3131815243125612376, guid: 5b71df10d91bc7a4c84e426b57cedcf8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1750068867750420688}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3692686721639268234 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3131815243125612378, guid: 5b71df10d91bc7a4c84e426b57cedcf8,
     type: 3}
   m_PrefabInstance: {fileID: 1750068867750420688}
   m_PrefabAsset: {fileID: 0}
