@@ -11,7 +11,7 @@ public class TreePlacement : MonoBehaviour
     private ARPlaneManager planeManager;
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
     public GameObject tree;
-    public GameObject donationManager;
+    public GameObject donationManager, placeTip;
     private Vector2 touchPosition;
     public bool treeSpawned;
     private float lastDistance = 100;
@@ -51,6 +51,7 @@ public class TreePlacement : MonoBehaviour
                 groundPlants.NextBloom();
                 treeFlowers.NextBloom();
                 donationManager.SetActive(true);
+                placeTip.SetActive(false);
                 enabled = false;
                 return;
             }

@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class DonationManager : MonoBehaviour
 {
-    public GameObject donationUI, confirmUI, editUI, leafPrefab, treeColliders, donationBar, colorPicker, donationReadPanel;
+    public GameObject donationUI, confirmUI, editUI, leafPrefab, treeColliders, donationBar, colorPicker, donationReadPanel, unlockToolTip;
     public GameObject currentLeaf;
     public Transform arCamera;
     public TMP_InputField amountInput, nameInput, messageInput;
@@ -15,7 +15,7 @@ public class DonationManager : MonoBehaviour
     private PlaceableLeaf leafPlacer;
     private Transform closestLeafPoint;
     public List<Transform> leafPoints;
-    public bool placeLeaf, spawnedLeaf, colorPick;
+    public bool placeLeaf, spawnedLeaf, colorPick, donated;
     public float lastDistance;
     private Donation currentDonation;
     public Donations donations;
@@ -25,6 +25,7 @@ public class DonationManager : MonoBehaviour
     public MeshRenderer leafRend2;
     public ColorManager colorManager;
     public int uiLayer;
+    public AudioSource donationUnlockedSound, leafLockedSoud, leafUnlockedSound;
     // Update is called once per frame
     void Update()
     {
@@ -72,6 +73,7 @@ public class DonationManager : MonoBehaviour
         switch (tag)
         {
             case "Donate":
+                Debug.Log("Donate");
                 donationResponse.text = "";
                 donationUI.SetActive(true);
                 GameObject newLeaf = Instantiate(leafPrefab, arCamera.position, arCamera.rotation, arCamera);
@@ -85,12 +87,22 @@ public class DonationManager : MonoBehaviour
                 donationResponse.text = "Your placed leaf";
                 break;
             case "OtherLeaf":
-                string[] leafNum = hitObject.name.Split('_');
-                donationResponse.text = "Another Leaf " + leafNum[1];
-                placedDonationName.text = donations.donations[int.Parse(leafNum[1])].name;
-                placedDonationMessage.text = donations.donations[int.Parse(leafNum[1])].message;
-                donationReadPanel.SetActive(true);
-                break;
+                if (donated)
+                {
+                    leafUnlockedSound.Play();
+                    string[] leafNum = hitObject.name.Split('_');
+                    donationResponse.text = "Another Leaf " + leafNum[1];
+                    placedDonationName.text = donations.donations[int.Parse(leafNum[1])].name;
+                    placedDonationMessage.text = donations.donations[int.Parse(leafNum[1])].message;
+                    donationReadPanel.SetActive(true);
+                    break;   
+                }
+                else
+                {
+                    leafLockedSoud.Play();
+                    unlockToolTip.SetActive(true);
+                    break;
+                }
         }
     }
 
@@ -129,8 +141,10 @@ public class DonationManager : MonoBehaviour
         {
             // SET LEAF TO SELECTED COLOR
             confirmUI.SetActive(false);
+            donationUnlockedSound.Play();
             donationResponse.text =
                 "Thank you " + currentDonation.name + " for your premium level donation of $" + currentDonation.amount;
+            donated = true;
             donationMeter.OnDonation(currentDonation.amount);
             spawnedLeaf = false;
             ColorPick();
@@ -146,8 +160,10 @@ public class DonationManager : MonoBehaviour
         else
         {
             confirmUI.SetActive(false);
+            donationUnlockedSound.Play();
             donationResponse.text =
                 "Thank you " + currentDonation.name + " for your donation of $" + currentDonation.amount;
+            donated = true;
             donationMeter.OnDonation(currentDonation.amount);
             spawnedLeaf = false;
             currentLeaf = null;
@@ -155,6 +171,17 @@ public class DonationManager : MonoBehaviour
         }
     }
 
+    public void OnDonationClose()
+    {
+        if (currentLeaf!=null)
+        {
+            spawnedLeaf = false;
+            Destroy(currentLeaf);
+            leafPlacer = null;
+            currentLeaf = null;
+        }
+    }
+    
     public void ColorPick()
     {
         if (!colorPick)
@@ -166,7 +193,7 @@ public class DonationManager : MonoBehaviour
             colorPick = true;
         }
         else
-        {
+        { 
             donationBar.SetActive(true);
             colorPicker.SetActive(false);   
             colorPick = false;

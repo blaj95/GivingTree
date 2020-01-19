@@ -61,7 +61,7 @@ public class FlowerGenerator : MonoBehaviour
             {
                 int spawnTransformIndex = Random.Range(0, donationManager.leafPoints.Count-1);
                 spawnPoint = treeSpawnPointsParent.GetChild(spawnTransformIndex).position;
-                donationManager.leafPoints.RemoveAt(spawnTransformIndex);
+               // donationManager.leafPoints.RemoveAt(spawnTransformIndex);
                // Destroy(treeSpawnPointsParent.GetChild(spawnTransformIndex).gameObject);
             }
             else
