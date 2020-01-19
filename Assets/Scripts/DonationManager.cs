@@ -47,6 +47,8 @@ public class DonationManager : MonoBehaviour
                 RaycastHit raycastHit;
                 if (Physics.Raycast(raycastTap, out raycastHit))
                 {
+                    if (IsPointerOverUIObject()) 
+                        return;
                     ObjectInteractions(raycastHit.transform.tag, raycastHit.transform.gameObject);
                 }   
             }   
