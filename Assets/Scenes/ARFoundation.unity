@@ -522,6 +522,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlacedLeafParent
       objectReference: {fileID: 0}
+    - target: {fileID: 8193311998265653688, guid: e51ace51aad75f549ad2b9dfeadeb08c,
+        type: 3}
+      propertyPath: m_TagString
+      value: OtherLeaf
+      objectReference: {fileID: 0}
     - target: {fileID: 8193311998265653747, guid: e51ace51aad75f549ad2b9dfeadeb08c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -576,21 +581,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -94.909004
-      objectReference: {fileID: 0}
-    - target: {fileID: 8193311998265653747, guid: e51ace51aad75f549ad2b9dfeadeb08c,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.005394617
-      objectReference: {fileID: 0}
-    - target: {fileID: 8193311998265653747, guid: e51ace51aad75f549ad2b9dfeadeb08c,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.005394617
-      objectReference: {fileID: 0}
-    - target: {fileID: 8193311998265653747, guid: e51ace51aad75f549ad2b9dfeadeb08c,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.005394616
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e51ace51aad75f549ad2b9dfeadeb08c, type: 3}
@@ -2198,6 +2188,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlacedLeafParent (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8193311998265653688, guid: e51ace51aad75f549ad2b9dfeadeb08c,
+        type: 3}
+      propertyPath: m_TagString
+      value: OtherLeaf
+      objectReference: {fileID: 0}
     - target: {fileID: 8193311998265653747, guid: e51ace51aad75f549ad2b9dfeadeb08c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3388,7 +3383,7 @@ PrefabInstance:
     - target: {fileID: 9078831429692904314, guid: d9705613a8279b2478978335bf0cbe5f,
         type: 3}
       propertyPath: numPlants
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 9078831429692904314, guid: d9705613a8279b2478978335bf0cbe5f,
         type: 3}
@@ -3400,6 +3395,16 @@ PrefabInstance:
       propertyPath: groundPlane
       value: 
       objectReference: {fileID: 2036725748}
+    - target: {fileID: 9078831429692904314, guid: d9705613a8279b2478978335bf0cbe5f,
+        type: 3}
+      propertyPath: numBloomTiers
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9078831429692904314, guid: d9705613a8279b2478978335bf0cbe5f,
+        type: 3}
+      propertyPath: tree
+      value: 
+      objectReference: {fileID: 1046464426}
     - target: {fileID: 9078831429692904315, guid: d9705613a8279b2478978335bf0cbe5f,
         type: 3}
       propertyPath: m_Name
@@ -3802,6 +3807,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlacedLeafParent (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8193311998265653688, guid: e51ace51aad75f549ad2b9dfeadeb08c,
+        type: 3}
+      propertyPath: m_TagString
+      value: OtherLeaf
       objectReference: {fileID: 0}
     - target: {fileID: 8193311998265653747, guid: e51ace51aad75f549ad2b9dfeadeb08c,
         type: 3}
@@ -5198,7 +5208,7 @@ PrefabInstance:
     - target: {fileID: 4350899005231022274, guid: 05b10ba463458864a81fed1e059e199a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4350899005231022274, guid: 05b10ba463458864a81fed1e059e199a,
         type: 3}
@@ -10694,7 +10704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &5763902768139609072
 GameObject:
   m_ObjectHideFlags: 0

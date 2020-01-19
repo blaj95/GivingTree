@@ -24,7 +24,7 @@ public class FlowerGenerator : MonoBehaviour
 	private float averageNumNewPlantsPerTier;
 
     public Transform treeSpawnPointsParent;
-    public Transform groundPlane;
+    public Transform groundPlane, tree;
     public bool onTree; //or on ground?
 
 
@@ -68,18 +68,23 @@ public class FlowerGenerator : MonoBehaviour
             {
                 Vector2 spawnPoint2D = Random.insideUnitCircle * (maxSpawnDistance - minSpawnDistance);
                 spawnPoint = new Vector3(spawnPoint2D.x, groundPlane.position.y, spawnPoint2D.y);
-                spawnPoint = spawnPoint + spawnPoint.normalized * minSpawnDistance;
+                //Vector3 localSpawn = spawnPoint;
+                spawnPoint +=  spawnPoint.normalized * minSpawnDistance;
             }
 
-            GameObject newPlant = Instantiate(plantPrefabs[Random.Range(0, plantPrefabs.Length)], spawnPoint, Quaternion.identity) as GameObject;
-            spawnedPlants.Add(newPlant);
+           
+            
 
             if (!onTree) //make further plants more transparent
             {
-                for (int ind = 0; ind < newPlant.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().materials.Length; ind++)
+	            GameObject newPlant = Instantiate(plantPrefabs[Random.Range(0, plantPrefabs.Length)]);
+	            newPlant.transform.position = spawnPoint;
+	            
+	            spawnedPlants.Add(newPlant);
+	            for (int ind = 0; ind < newPlant.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().materials.Length; ind++)
                 {
                     Color color = newPlant.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().materials[ind].color;
-                    color.a = Mathf.SmoothStep(1f, 0f, Vector3.Magnitude(spawnPoint) / 3f);
+                    color.a = Mathf.SmoothStep(1f, 0f, Vector3.Magnitude(newPlant.transform.localPosition) / 3f);
                     //Material newMat = new Material(newPlant.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().materials[ind]);
                     //newMat.shader = Shader.Find("Custom/PlantStandard");
                     //newMat.color = color;
@@ -89,11 +94,14 @@ public class FlowerGenerator : MonoBehaviour
 
                 }
             }
-           
+            else
+            {
+	            GameObject newPlant = Instantiate(plantPrefabs[Random.Range(0, plantPrefabs.Length)], spawnPoint, Quaternion.identity);
+	            spawnedPlants.Add(newPlant);
+            }
 		}
 
         GrowAllPlants();
-
 	}
 
     private void GrowAllPlants()
