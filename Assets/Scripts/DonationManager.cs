@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -6,17 +7,18 @@ using UnityEngine.EventSystems;
 
 public class DonationManager : MonoBehaviour
 {
-    public GameObject donationUI, confirmUI, editUI, leafPrefab, treeColliders, donationBar, colorPicker;
+    public GameObject donationUI, confirmUI, editUI, leafPrefab, treeColliders, donationBar, colorPicker, donationReadPanel;
     public GameObject currentLeaf;
     public Transform arCamera;
     public TMP_InputField amountInput, nameInput, messageInput;
-    public TMP_Text donationResponse;
+    public TMP_Text donationResponse, placedDonationName, placedDonationMessage;
     private PlaceableLeaf leafPlacer;
     private Transform closestLeafPoint;
     public List<Transform> leafPoints;
     public bool placeLeaf, spawnedLeaf, colorPick;
     public float lastDistance;
     private Donation currentDonation;
+    public Donations donations;
     public DonationMeter donationMeter;
     private ParticleSystem leafParticles;
     public MeshRenderer leafRend1;
@@ -34,7 +36,7 @@ public class DonationManager : MonoBehaviour
                 RaycastHit raycastHit;
                 if (Physics.Raycast(raycastTap, out raycastHit))
                 {
-                    ObjectInteractions(raycastHit.transform.tag);
+                    ObjectInteractions(raycastHit.transform.tag, raycastHit.transform.gameObject);
                 }   
             }   
         }
@@ -65,7 +67,7 @@ public class DonationManager : MonoBehaviour
         }
     }
     
-    void ObjectInteractions(string tag)
+    void ObjectInteractions(string tag, GameObject hitObject)
     {
         switch (tag)
         {
@@ -83,7 +85,11 @@ public class DonationManager : MonoBehaviour
                 donationResponse.text = "Your placed leaf";
                 break;
             case "OtherLeaf":
-                donationResponse.text = "Another Leaf";
+                string[] leafNum = hitObject.name.Split('_');
+                donationResponse.text = "Another Leaf " + leafNum[1];
+                placedDonationName.text = donations.donations[int.Parse(leafNum[1])].name;
+                placedDonationMessage.text = donations.donations[int.Parse(leafNum[1])].message;
+                donationReadPanel.SetActive(true);
                 break;
         }
     }
@@ -114,6 +120,11 @@ public class DonationManager : MonoBehaviour
         placeLeaf = false;
         Donation newDonation = new Donation(float.Parse(amountInput.text), nameInput.text, messageInput.text);
         currentDonation = newDonation;
+        if (donations.donations.Contains(currentDonation))
+        {
+            donations.donations.Add(currentDonation);    
+        }
+        
         if (colorPick)
         {
             // SET LEAF TO SELECTED COLOR

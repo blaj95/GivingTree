@@ -171,6 +171,7 @@
           <e p="ColorManager.cs" t="Include" />
           <e p="DonationManager.cs" t="Include" />
           <e p="DonationMeter.cs" t="Include" />
+          <e p="Donations.cs" t="Include" />
           <e p="EnablePlaque.cs" t="Include" />
           <e p="Networking" t="Include">
             <e p="NetworkManager.cs" t="Include" />
