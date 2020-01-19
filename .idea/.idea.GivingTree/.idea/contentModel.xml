@@ -168,6 +168,7 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="ChooseCause.cs" t="Include" />
           <e p="ColorManager.cs" t="Include" />
           <e p="DonationManager.cs" t="Include" />
           <e p="DonationMeter.cs" t="Include" />
