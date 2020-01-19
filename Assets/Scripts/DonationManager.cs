@@ -69,6 +69,7 @@ public class DonationManager : MonoBehaviour
                     
                     if (raycastHit.transform.CompareTag("Tree"))
                     {
+                        if (IsPointerOverUIObject()) return;
                         leafPlacer.MoveToTree(GetClosestPoint(raycastHit.point));
                         confirmUI.SetActive(true);
                         
@@ -298,6 +299,16 @@ public class DonationManager : MonoBehaviour
       
         lastDistance = 100;
         return closestLeafPoint;
+    }
+
+
+    bool IsPointerOverUIObject()
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, results);
+        return results.Count > 0;
     }
 }
 

@@ -40,6 +40,8 @@ public class TreePlacement : MonoBehaviour
             if (raycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
             {
                 var hitPose = hits[0].pose;
+
+                if (IsPointerOverUIObject()) return;
                 //SPAWN AT HITPOSE
                 tree.transform.position = hitPose.position;
                 tree.transform.eulerAngles = new Vector3(tree.transform.eulerAngles.x, camera.eulerAngles.y, tree.transform.eulerAngles.z);
@@ -98,5 +100,16 @@ public class TreePlacement : MonoBehaviour
 
         touchPosition = default;
         return false;
+    }
+
+
+
+    bool IsPointerOverUIObject()
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, results);
+        return results.Count > 0;
     }
 }
