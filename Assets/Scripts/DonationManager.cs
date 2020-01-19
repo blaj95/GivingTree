@@ -26,6 +26,10 @@ public class DonationManager : MonoBehaviour
     public ColorManager colorManager;
     public int uiLayer;
     public AudioSource donationUnlockedSound, leafLockedSoud, leafUnlockedSound;
+
+    public FlowerGenerator treeBloom;
+    public FlowerGenerator groundBloom;
+
     // Update is called once per frame
     void Update()
     {
@@ -144,6 +148,11 @@ public class DonationManager : MonoBehaviour
             donationUnlockedSound.Play();
             donationResponse.text =
                 "Thank you " + currentDonation.name + " for your premium level donation of $" + currentDonation.amount;
+            if (!donated)
+            {
+                groundBloom.NextBloom();
+                treeBloom.NextBloom();
+            }
             donated = true;
             donationMeter.OnDonation(currentDonation.amount);
             spawnedLeaf = false;
@@ -163,6 +172,11 @@ public class DonationManager : MonoBehaviour
             donationUnlockedSound.Play();
             donationResponse.text =
                 "Thank you " + currentDonation.name + " for your donation of $" + currentDonation.amount;
+            if (!donated)
+            {
+                groundBloom.NextBloom();
+                treeBloom.NextBloom();
+            }
             donated = true;
             donationMeter.OnDonation(currentDonation.amount);
             spawnedLeaf = false;

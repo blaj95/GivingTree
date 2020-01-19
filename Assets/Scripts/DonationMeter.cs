@@ -12,8 +12,15 @@ public class DonationMeter : MonoBehaviour
     public Animator uiPop;
     public float currentDonationTotal;
     public float testDonation;
-
+    public GameObject goalReachedText;
     public bool pressed;
+
+    public FlowerGenerator ground;
+    public FlowerGenerator tree;
+
+    public GameObject normalMusic;
+    public GameObject fundedMusic;
+    
     // Start is called before the first frame update
     void Update()
     {
@@ -30,6 +37,17 @@ public class DonationMeter : MonoBehaviour
     {
         currentDonationTotal += donation;
         meterHandle.value = currentDonationTotal;
+        
+        //Goal reached
+        if (currentDonationTotal >= 30000)
+        {
+            Debug.Log("End Goal Reached");
+            goalReachedText.SetActive(true);
+            tree.NextBloom();
+            ground.NextBloom();
+            normalMusic.SetActive(false);
+            fundedMusic.SetActive(true);
+        }
     }
 
     public void OnSliderChanged()
