@@ -39,20 +39,26 @@ public class TreePlacement : MonoBehaviour
         {
             if (raycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
             {
-                var hitPose = hits[0].pose;
-                //SPAWN AT HITPOSE
-                tree.transform.position = hitPose.position;
-                tree.transform.eulerAngles = new Vector3(tree.transform.eulerAngles.x, camera.eulerAngles.y, tree.transform.eulerAngles.z);
-                tree.SetActive(true);
-                treeSpawned = true;
-                foreach (var plane in planeManager.trackables)
-                    plane.gameObject.SetActive(false);
-                planeManager.enabled = false;
-                groundPlants.NextBloom();
-                treeFlowers.NextBloom();
-                donationManager.SetActive(true);
-                placeTip.SetActive(false);
-                enabled = false;
+                if (!IsPointerOverUIObject())
+                {
+                    var hitPose = hits[0].pose;
+                    //SPAWN AT HITPOSE
+                    tree.transform.position = hitPose.position;
+                    tree.transform.eulerAngles = new Vector3(tree.transform.eulerAngles.x, camera.eulerAngles.y, tree.transform.eulerAngles.z);
+                    tree.SetActive(true);
+                    treeSpawned = true;
+                    foreach (var plane in planeManager.trackables)
+                        plane.gameObject.SetActive(false);
+                    planeManager.enabled = false;
+                    groundPlants.NextBloom();
+                    treeFlowers.NextBloom();
+                    donationManager.SetActive(true);
+                    placeTip.SetActive(false);
+                    enabled = false;
+                }
+            }
+            else
+            {
                 return;
             }
         }
@@ -98,5 +104,14 @@ public class TreePlacement : MonoBehaviour
 
         touchPosition = default;
         return false;
+    }
+
+    bool IsPointerOverUIObject()
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData,results);
+        return results.Count > 0;
     }
 }
