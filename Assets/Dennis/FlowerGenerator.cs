@@ -78,13 +78,13 @@ public class FlowerGenerator : MonoBehaviour
             if (!onTree) //make further plants more transparent
             {
 	            GameObject newPlant = Instantiate(plantPrefabs[Random.Range(0, plantPrefabs.Length)]);
-	            newPlant.transform.position = spawnPoint;
+	            newPlant.transform.position = new Vector3(groundPlane.position.x + spawnPoint.x, groundPlane.position.y, groundPlane.position.z + spawnPoint.z);
 	            
 	            spawnedPlants.Add(newPlant);
 	            for (int ind = 0; ind < newPlant.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().materials.Length; ind++)
                 {
                     Color color = newPlant.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().materials[ind].color;
-                    color.a = Mathf.SmoothStep(1f, 0f, Vector3.Magnitude(newPlant.transform.localPosition) / 3f);
+                    color.a = Mathf.SmoothStep(1f, 0f, Vector3.Magnitude(newPlant.transform.position - groundPlane.position) / 2f);
                     //Material newMat = new Material(newPlant.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().materials[ind]);
                     //newMat.shader = Shader.Find("Custom/PlantStandard");
                     //newMat.color = color;
