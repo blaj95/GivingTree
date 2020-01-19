@@ -74,6 +74,12 @@ public class DonationManager : MonoBehaviour
                 // leafParticles.Stop();
                 spawnedLeaf = true;
                 break;
+            case "Leaf":
+                donationResponse.text = "Your placed leaf";
+                break;
+            case "OtherLeaf":
+                donationResponse.text = "Another Leaf";
+                break;
         }
     }
 
