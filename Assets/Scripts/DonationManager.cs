@@ -17,7 +17,7 @@ public class DonationManager : MonoBehaviour
     public float lastDistance;
     private Donation currentDonation;
     public DonationMeter donationMeter;
-
+    private ParticleSystem leafParticles;
     public int uiLayer;
     // Update is called once per frame
     void Update()
@@ -69,7 +69,9 @@ public class DonationManager : MonoBehaviour
                 donationResponse.text = "";
                 donationUI.SetActive(true);
                 GameObject newLeaf = Instantiate(leafPrefab, arCamera.position, arCamera.rotation, arCamera);
-                leafPlacer = newLeaf.GetComponent<PlaceableLeaf>();
+                leafPlacer = newLeaf.GetComponentInChildren<PlaceableLeaf>();
+                // leafParticles = newLeaf.GetComponentInChildren<ParticleSystem>();
+                // leafParticles.Stop();
                 spawnedLeaf = true;
                 break;
         }
@@ -85,6 +87,7 @@ public class DonationManager : MonoBehaviour
             confirmUI.SetActive(true);
         // editUI.SetActive(true);
         placeLeaf = true;
+        // leafParticles.Play();
     }
 
     public void EditDonation()
