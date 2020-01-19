@@ -83,7 +83,7 @@ public class DonationManager : MonoBehaviour
         treeColliders.SetActive(true);
         if(placeLeaf)
             confirmUI.SetActive(true);
-        editUI.SetActive(true);
+        // editUI.SetActive(true);
         placeLeaf = true;
     }
 
@@ -91,7 +91,7 @@ public class DonationManager : MonoBehaviour
     {
         donationUI.SetActive(true);
         treeColliders.SetActive(false);
-        editUI.SetActive(false);
+       // editUI.SetActive(false);
     }
     
     public void ConfirmPlacement()
@@ -104,7 +104,7 @@ public class DonationManager : MonoBehaviour
         donationMeter.OnDonation(currentDonation.amount);
         spawnedLeaf = false;
         confirmUI.SetActive(false);
-        editUI.SetActive(false);
+        // editUI.SetActive(false);
     }
 
     public Transform GetClosestPoint(Vector3 hitPose)
